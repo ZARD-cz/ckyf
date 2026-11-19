@@ -16,16 +16,17 @@ void key_init(void){
 uint8_t key_getnum(void){
 	uint8_t Keynum = 0;
 	if (GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_1)==0){
-		delay_ms(20);                                       
-		Keynum = 1;
-		}
-	delay_ms(960);
-	if (GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_1)==0){
-			Keynum = 2;
-		}
-	if (GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_1)==0){
-	if (GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_1)==0){     
+		delay_ms(20);
+     if (GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_1)==0)		Keynum = 1;
+	}
+	int count=0;
+	while(GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_1)==0 && count < 980){
+		delay_ms(5);
+		count +=5;}
+	if (GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_1)==0 && count >=980){
+			Keynum = 2;}
+	if (GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_1)==0){   
 			while (GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_1)==0); 
-	}}
+	}
 	return Keynum;
 }
